@@ -5,17 +5,14 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-  <div id="toggle-btn" onclick="toggleBackground()">
-    <div id="sun-icon"></div>
-  </div>
-  <div id="chat-window">
+  <div id="chat-window" class="chat-background">
     <!-- Chat conversation displayed here -->
   </div>
-  <div id="user-input">
-    <input type="text" id="user-message" placeholder="Type your message...">
+  <div id="user-input" class="chat-background">
+    <input type="text" id="user-message" placeholder="Type your question...">
     <button onclick="sendMessage()">Send</button>
   </div>
-  <div id="chat-history">
+  <div id="chat-history" class="chat-background">
     <!-- Chat history displayed here -->
   </div>
 
