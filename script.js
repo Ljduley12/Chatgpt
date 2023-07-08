@@ -3,8 +3,25 @@ function sendMessage() {
   addMessage('user', userInput);
   document.getElementById('user-message').value = '';
 
-  // Make an API request to OpenAI to get the model's response
-  // Update the chat window with the response using addMessage('assistant', response);
+  fetch('https://api.openai.com/v1/engines/davinci-codex/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': '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'
+    },
+    body: JSON.stringify({
+      prompt: 'Q: ' + userInput + '\nA:',
+      max_tokens: 50
+    })
+  })
+  .then(response => response.json())
+  .then(data => {
+    var response = data.choices[0].text.trim();
+    addMessage('assistant', response);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });
 }
 
 function addMessage(role, content) {
@@ -14,28 +31,3 @@ function addMessage(role, content) {
   message.innerText = content;
   chatWindow.appendChild(message);
 }
-
-function toggleBackground() {
-  var body = document.body;
-  body.classList.toggle('dark-mode');
-}
-
-// Example to show chat history
-var chatHistory = [
-  'Hello!',
-  'How can I assist you?',
-  'Sure, I can help with that.',
-  'Is there anything else I can assist you with?'
-];
-
-function showChatHistory() {
-  var chatHistorySection = document.getElementById('chat-history');
-  chatHistorySection.innerHTML = '';
-  chatHistory.forEach(function(chat) {
-    var chatMessage = document.createElement('div');
-    chatMessage.innerText = chat;
-    chatHistorySection.appendChild(chatMessage);
-  });
-}
-
-showChatHistory();
